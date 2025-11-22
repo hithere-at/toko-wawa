@@ -1,4 +1,5 @@
 #include <string>
+#include "inventori/inventori.hpp"
 
 #ifndef _SHOP_USER_HPP_
 #define _SHOP_USER_HPP_
@@ -30,10 +31,15 @@ class Kasir : public User {
         long sales;
 
     public:
+        void create_transaction();
+        void commit_transaction();
 
-        void createTransaction();
-        void addProduct()
-        
+}
+
+class Manager : public User {
+
+    public:
+        void manage_stock(Inventori *inv, int len);
 
 }
 

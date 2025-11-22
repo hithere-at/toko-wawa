@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#include <algorithm>
+#include <vector>
 
 int totaltrans = 0;
 int totalcash = 0;
