@@ -1,7 +1,7 @@
 #include <string>
 
-#ifndef _USER_HPP_
-#define _USER_HPP_
+#ifndef _SHOP_USER_HPP_
+#define _SHOP_USER_HPP_
 
 class User {
 
@@ -16,11 +16,24 @@ class User {
         std::string ttl;
         std::string status;
 
-    User();
-    User (std::string nama, std::string ttd, std::string status);
-    User (std::string nama, std::string ttd, std::string status, std::string user_id, int balance, std::string hash, std::string salt);
+        User();
+        User (std::string nama, std::string ttd, std::string status);
+        User (std::string nama, std::string ttd, std::string status, std::string user_id, int balance, std::string hash, std::string salt);
 
-    void print_info();
+        void print_info();
+
+};
+
+class Kasir : public User {
+
+    private:
+        long sales;
+
+    public:
+
+        void createTransaction();
+        void addProduct()
+        
 
 }
 

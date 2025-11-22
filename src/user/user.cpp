@@ -1,7 +1,7 @@
 #include <iostream>
 #include "user.hpp"
 
-User::User () {}
+User::User () { this->balance = -1; }
 
 User::User (std::string nama, std::string ttd, std::string status) {
     this->nama = nama;

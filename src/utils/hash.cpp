@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <chrono>
+#include <iostream>
 #include "hash.hpp"
 
 std::string pw_hash(std::string in, std::string salt) {
@@ -40,7 +41,9 @@ std::string gen_salt(int len) {
 
     std::string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     std::string buf = "";
-    std::srand(std::time(nullptr));
+    auto clock_now = std::chrono::system_clock::now().time_since_epoch();
+    auto clock_ms = std::chrono::duration_cast<std::chrono::milliseconds>(clock_now).count();
+    std::srand(clock_ms);
 
     for (int i = 0; i < len; i++) {
         buf += chars[(rand() % 61)];

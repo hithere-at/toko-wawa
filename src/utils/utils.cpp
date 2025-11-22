@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "../user/user.hpp"
-// #include "utils.hpp"
+#include "utils.hpp"
 
 int num_input(std::string prompt, int lower, int upper) {
 
@@ -13,7 +12,7 @@ int num_input(std::string prompt, int lower, int upper) {
         std::cin >> input;
 
         if (input < lower || input > upper || std::cin.fail()) {
-            std:cerr << "Input tidak valid. Mohon mengulangi" << endl << endl;
+            std::cerr << "Input tidak valid. Mohon mengulangi" << std::endl << std::endl;
             continue;
 
         }
@@ -28,7 +27,7 @@ int num_input(std::string prompt, int lower, int upper) {
 
 int get_db_user_len() {
 
-    fstream db_file("db.csv", std::ios::in);
+    std::fstream db_file("db.csv", std::ios::in);
     std::string line_buf;
     int count = 0;
 
@@ -39,40 +38,43 @@ int get_db_user_len() {
 
         }
 
+    }
+
     return count;
 
 }
 
-void load_db_from_file(Pelanggan *db) {
+void load_db_from_file(User *db) {
 
-    fstream db_file("db.csv", std::ios::in);
+    std::fstream db_file("db.csv", std::ios::in);
     std::string line_buf;
-    std::string user_len = 0;
+    int user_len = 0;
 
     if (db_file.is_open()) {
 
         while (getline(db_file, line_buf)) {
             std::string::size_type found_idx = 0;
             std::string::size_type line_buf_len  = line_buf.size();
-            std::string prop[6];
+            std::string prop[7];
             int count = 0;
 
             while (found_idx <= line_buf_len) {
                 std::string::size_type old_pos = found_idx;
                 found_idx = line_buf.find(",", old_pos);
+                std::string field;
 
                 if (found_idx != std::string::npos) {
 
                     if (count == 0) {
-                        std::string field = line_buf.substr(0, found_idx);
+                        field = line_buf.substr(0, found_idx);
 
                     } else {
-                        std::string field = line_buf.substr(old_pos+1, found_idx);
+                        field = line_buf.substr(old_pos, found_idx-old_pos);
 
                     }
 
                 } else {
-                    std::string field = line_buf.substr(old_pos, line_buf_len);
+                    field = line_buf.substr(old_pos, line_buf_len);
                     found_idx = line_buf_len;
 
                 }
@@ -83,27 +85,13 @@ void load_db_from_file(Pelanggan *db) {
 
             }
 
-            db[user_len] = Pelanggan(prop[0], prop[1], prop[2], prop[3], prop[4], std::stoi(prop[5]));
+            db[user_len] = User(prop[0], prop[1], prop[2], prop[3], std::stoi(prop[4]), prop[5], prop[6]);
             user_len++;
 
         }
 
     }
 
-    db_file.close()
+    db_file.close();
 
-}
-
-int main() {
-
-    int pel_len = get_db_user_len();
-    Pelanggan *pel = new Pelanggan[pel_len];
-    load_db_from_file(pel);
-
-    for (int i = 0; i < pel_len; i++) {
-        pel[i].print_info();
-
-    }
-
-    return 0;
 }
