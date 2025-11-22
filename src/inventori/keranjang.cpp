@@ -1,13 +1,13 @@
 #include <iostream>
-#include "inventori/inventori.hpp"
+#include "inventori/keranjang.hpp"
 using namespace std;
 
-Keranjang::Keranjang() : ItemKeranjang(nullptr, 0) { 
-    this->jumlah = 0;
+Keranjang::Keranjang() : ItemKeranjang(nullptr, 0) {
+    jumlah = 0;
 
 }
 
-void Keranjang::tambahBarang(inventori* b, int qty) {
+void Keranjang::tambahBarang(Inventori* b, int qty) {
 
     if (jumlah < 100) {
         items[jumlah] = new ItemKeranjang(b, qty);
@@ -21,7 +21,7 @@ void Keranjang::tambahBarang(inventori* b, int qty) {
 
 }
 
-void tampilkanKeranjang() {
+void Keranjang::tampilkanKeranjang() {
 
     cout << "\n=== ISI KERANJANG ===\n";
 
@@ -51,6 +51,7 @@ long Keranjang::totalBelanja() {
     return total;
 
 }
+
 /*
 int main() {
     Keranjang cart;

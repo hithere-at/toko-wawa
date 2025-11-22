@@ -1,8 +1,10 @@
 #include <iostream>
-#include "user.hpp"
+#include "user/user.hpp"
 #include "utils/utils.hpp"
 
-void Manajer::manage_stock(Inventori *inv, int len, std::string action) {
+Manajer::Manajer(User &usr) : User(usr) {}
+
+void Manajer::manage_stock(Inventori **inv, int len, std::string action) {
 
     std::cout << "===== INVENTORI =====" << std::endl;
 
@@ -18,10 +20,10 @@ void Manajer::manage_stock(Inventori *inv, int len, std::string action) {
     long upper;
 
     if (action == "ADD") {
-        prompt = "Pilih stok barang yang akan ditambahkan [1-" + len + "]: ";
+        prompt = "Pilih stok barang yang akan ditambahkan: ";
 
     } else if (action == "REMOVE") {
-        prompt = "Pilih stok barang yang akan dikurangi [1-" + len + "]: ";
+        prompt = "Pilih stok barang yang akan dikurangi: ";
 
     }
 
@@ -33,20 +35,19 @@ void Manajer::manage_stock(Inventori *inv, int len, std::string action) {
 
     } else if (action == "REMOVE") {
         upper = inv[choice-1]->getStok();
-        prompt = "Jumlah stok barang yang akan dikurangi [1-" + upper + "]: ";
+        prompt = "Jumlah stok barang yang akan dikurangi: ";
 
     }
 
-    int num_stok = num_input(prompt, 1, upper)
+    int num_stok = num_input(prompt, 1, upper);
 
     if (action == "ADD") {
-        inv[i]->tambahStok(num_stok);
+        inv[choice-1]->tambahStok(num_stok);
 
     } else if (action == "REMOVE") {
-        inv[i]->kurangiStok(num_stok);
+        inv[choice-1]->kurangiStok(num_stok);
 
     }
-
 
 }
 

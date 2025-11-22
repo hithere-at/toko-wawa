@@ -1,14 +1,15 @@
 #include <string>
 #include <vector>
 
-int totaltrans = 0;
-int totalcash = 0;
+#ifndef _SHOP_AUDIT_HPP_
+#define _SHOP_AUDIT_HPP_
 
-class Audit{
+class Audit {
 
     protected:
         std::string currenttime, transactiontype, transactiondetails;
-        int cashflow;
+        int totaltrans, totalcash;
+        long cashflow;
 
     public:
         Audit();
@@ -18,7 +19,7 @@ class Audit{
 
 };
 
-class Debit : public Audit{
+class Debit : public Audit {
 
     private:
         std::string cardnumber, bank, securitycode, finished;
@@ -29,7 +30,7 @@ class Debit : public Audit{
 
 };
 
-class Qris : public Audit{
+class Qris : public Audit {
 
     private:
         std::string qriscode, bank, accountnumber, finished;
@@ -40,7 +41,7 @@ class Qris : public Audit{
 
 };
 
-class Transaction : public Audit{
+class Transaction : public Audit {
 
     protected:
         int transactionmethod;
@@ -49,11 +50,11 @@ class Transaction : public Audit{
     public:
         Transaction();
         Transaction(std::string type, std::string details);
-        std::string addTransaction();
+        std::string addTransaction(long amount);
 
 };
 
-class Logger : public Transaction{
+class Logger : public Transaction {
 
 	private:
 		std::vector<std::string> translog = {};
@@ -65,3 +66,5 @@ class Logger : public Transaction{
 		void getTransList();
 
 };
+
+#endif

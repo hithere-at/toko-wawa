@@ -1,12 +1,14 @@
 #include <string>
 #include "inventori/inventori.hpp"
+#include "inventori/keranjang.hpp"
+#include "audit/audit.hpp"
 
 #ifndef _SHOP_USER_HPP_
 #define _SHOP_USER_HPP_
 
 class User {
 
-    protected:
+   protected:
         std::string user_id;
         long balance;
 
@@ -31,16 +33,26 @@ class Kasir : public User {
         long sales;
 
     public:
-        void create_transaction();
-        void commit_transaction();
+        Kasir(User &usr);
+        void commit_transaction(User *usr, Keranjang *cart, Logger *audit);
 
-}
+};
 
-class Manager : public User {
+class Manajer : public User {
 
     public:
-        void manage_stock(Inventori *inv, int len);
+        Manajer(User &usr);
+        void manage_stock(Inventori **inv, int len, std::string action);
 
-}
+};
+
+class Member : public User {
+
+    public:
+        Member(User &usr);
+        char code;
+
+};
 
 #endif
+

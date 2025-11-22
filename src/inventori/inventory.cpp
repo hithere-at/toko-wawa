@@ -1,40 +1,41 @@
 #include <iostream>
+#include "inventori.hpp"
 using namespace std;
 
-void Inventori::setBarang(string name,int stock,double price){
-    this->stok = stock;
-    this->nama = name;
-    this->harga = price;
+void Inventori::setBarang(string name, int stock, int price){
+    stok = stock;
+    nama = name;
+    harga = price;
 
 }
 string Inventori::getNama() {
-    return this->nama;
+    return nama;
 
 }
 
 long Inventori::getStok() {
-    return this->stok;
+    return stok;
 
 }
 
 void Inventori::tampilkanBarang(){
-    cout << "Nama Barang        : " << this->nama << endl;
-    cout << "Stock Barang       : " << this->stok << endl;
-    cout << "Harga Per pcs      : " << this->harga << endl;
+    cout << "Nama Barang        : " << nama << endl;
+    cout << "Stock Barang       : " << stok << endl;
+    cout << "Harga Per pcs      : " << harga << endl;
 
 }
 
 long Inventori::totalHarga(){
     long total;
-    total = this->harga * this->stok;
+    total = harga * stok;
     return total;
 
 }
 
 void Inventori::kurangiStok(int jumlah) {
 
-    if (jumlah <= this->stok) {
-        this->stok -= jumlah;
+    if (jumlah <= stok) {
+        stok -= jumlah;
         cout << "Stok berkurang sebanyak " << jumlah << ". Sisa stok: " << stok << endl;
 
     } else {
@@ -44,8 +45,8 @@ void Inventori::kurangiStok(int jumlah) {
 }
 
 void Inventori::tambahStok(int jumlah) {
-    this->stok += jumlah;
-    cout << "Stok bertambah sebanyak " << jumlah << ". Total stok: " << this->stok << endl;
+    stok += jumlah;
+    cout << "Stok bertambah sebanyak " << jumlah << ". Total stok: " << stok << endl;
 
 }
 

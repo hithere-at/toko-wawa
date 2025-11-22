@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "utils.hpp"
+#include "utils/utils.hpp"
 
 int num_input(std::string prompt, int lower, int upper) {
 
@@ -13,6 +13,8 @@ int num_input(std::string prompt, int lower, int upper) {
 
         if (input < lower || input > upper || std::cin.fail()) {
             std::cerr << "Input tidak valid. Mohon mengulangi" << std::endl << std::endl;
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
             continue;
 
         }
@@ -44,7 +46,7 @@ int get_db_user_len() {
 
 }
 
-void load_db_from_file(User *db) {
+void load_user_db_from_file(User *db) {
 
     std::fstream db_file("db.csv", std::ios::in);
     std::string line_buf;
@@ -93,5 +95,37 @@ void load_db_from_file(User *db) {
     }
 
     db_file.close();
+
+}
+
+void write_transaction(std::string transact) {
+
+    std::fstream transact_file("transact.aud", std::ios::out | std::ios::app);
+
+    if (transact_file.is_open()) {
+        transact_file << transact << std::endl;
+
+    }
+
+    transact_file.close();
+
+}
+
+void write_user(User *usr, std::string uid, long balance) {
+
+    std::fstream user_file("db.csv", std::ios::out | std::ios::app);
+
+    if (user_file.is_open()) {
+        user_file << usr->nama << ",";
+        user_file << usr->ttl << ",";
+        user_file << usr->status << ",";
+        user_file << uid << ",";
+        user_file << balance << ",";
+        user_file << usr->hash << ",";
+        user_file << usr->salt << std::endl;
+
+    }
+
+    user_file.close();
 
 }

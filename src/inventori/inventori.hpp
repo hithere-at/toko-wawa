@@ -14,8 +14,8 @@ class Inventori {
         void setBarang(std::string nama, int stock, int price);
         std::string getNama();
         long getStok();
-        void tampilkanBarang();
-        void totalHarga();
+        virtual void tampilkanBarang();
+        long totalHarga();
         void kurangiStok(int jumlah);
         void tambahStok(int jumlah);
 
@@ -24,33 +24,33 @@ class Inventori {
 class Makanan : public Inventori {
 
     private:
-        string kadaluarsa;
+        std::string kadaluarsa;
 
     public:
-        void setMakanan(std::string n, int s, int h, std::string k);
-        void tampilkanMakanan();
+        Makanan(std::string n, int s, int h, std::string k);
+        void tampilkanBarang() override;
 
 };
 
 class Minuman : public Inventori {
 
     private:
-        string kadaluarsa;
+        std::string kadaluarsa;
 
     public:
-        void setMinuman(std::string n, int s, int h, std::string k);
-        void tampilkanMinuman();
+        Minuman(std::string n, int s, int h, std::string k);
+        void tampilkanBarang() override;
 
 };
 
 class Peralatan : public Inventori {
 
     private:
-        string kategori;
+        std::string kategori;
 
     public:
-        void setPeralatan(std::string n, int s, int h, std::string k);
-        void tampilkanPeralatan();
+        Peralatan(std::string n, int s, int h, std::string k);
+        void tampilkanBarang() override;
 
 };
 

@@ -2,13 +2,12 @@
 #include <string>
 #include "audit/audit.hpp"
 
-std::string Transaction::addTransaction() {
+std::string Transaction::addTransaction(long amount) {
 
     std::cout << "Metode Pembayaran:\n1. Debit\n2. QRIS\n3. Cash\n";
     std::cin >> this->transactionmethod;
 
-    std::cout << "Jumlah yang dibayar : ";
-    std::cin >> cashflow;
+    cashflow = amount;
 
     if (transactiontype == "Out") {
         totalcash -= cashflow;
@@ -63,9 +62,9 @@ std::string Transaction::addTransaction() {
 
 }
 
-Transaction() : Audit() {}
+Transaction::Transaction() : Audit() {}
 
-Transaction(std::string type, std::string details) : Audit() {
+Transaction::Transaction(std::string type, std::string details) : Audit() {
     transactiontype = type;
     transactiondetails = details;
 

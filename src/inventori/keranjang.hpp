@@ -1,3 +1,5 @@
+#include "inventori/inventori.hpp"
+
 #ifndef _SHOP_KERANJANG_HPP_
 #define _SHOP_KERANJANG_HPP_
 
@@ -16,15 +18,15 @@ class ItemKeranjang {
 class Keranjang : public ItemKeranjang {
 
     private:
-        ItemKeranjang *items;
+        ItemKeranjang *items[100];
         int jumlah;
 
     public:
         Keranjang();
         void tambahBarang(Inventori *b, int qty);
         void tampilkanKeranjang();
-        void totalBelanja();
+        long totalBelanja();
 
-}
+};
 
 #endif

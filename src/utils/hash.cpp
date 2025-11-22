@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <chrono>
 #include <iostream>
-#include "hash.hpp"
+#include "utils/utils.hpp"
 
 std::string pw_hash(std::string in, std::string salt) {
 

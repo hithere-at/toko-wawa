@@ -1,10 +1,10 @@
 #include <iostream>
-#include "inventori/inventori.hpp"
+#include "inventori/keranjang.hpp"
 using namespace std;
 
 ItemKeranjang::ItemKeranjang(Inventori* b, int j) {
-    this->barang = b;
-    this->jumlahBeli = j;
+    barang = b;
+    jumlahBeli = j;
 
 }
 
@@ -14,7 +14,7 @@ long ItemKeranjang::totalHarga() {
 }
 
 void ItemKeranjang::tampil() {
-    this->barang->tampilkanBarang();
+    barang->tampilkanBarang();
     cout << "Jumlah dibeli      : " << jumlahBeli << endl;
     cout << "Total harga        : " << totalHarga() << endl;
 
