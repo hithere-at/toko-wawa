@@ -4,6 +4,58 @@
 
 Manajer::Manajer(User &usr) : User(usr) {}
 
+void Manajer::add_new_stock(Inventori **inv, int len, Logger *audit) {
+
+    std::string nama, stuff;
+    long stok, harga;
+    int tipe_barang;
+    Inventori *barang;
+
+    std::cout << "1. Makanan" << std::endl;
+    std::cout << "2. Minuman" << std::endl;
+    std::cout << "3. Peralatan" << std::endl;
+    tipe_barang = num_input("Pilih tipe barang [1-3]: ", 1, 3);
+
+    std::cout << "Masukkan nama barang: ";
+    std::cin.ignore();
+    std::getline(std::cin, nama);
+
+    std::cout << "Masukkan harga barang: ";
+    std::cin >> harga;
+
+    std::cout << "Masukkan jumlah stok barang: ";
+    std::cin >> stok;
+
+    if (tipe_barang == 1) {
+        std::cout << "Masukkan tanggal kadularsa barang (format DD/MM/YYYY): ";
+        std::cin >> stuff;
+        barang = new Makanan(nama, stok, harga, stuff);
+
+    } else if (tipe_barang == 2) {
+        std::cout << "Masukkan tanggal kadularsa barang (format DD/MM/YYYY): ";
+        std::cin >> stuff;
+        barang = new Minuman(nama, stok, harga, stuff);
+
+    } else {
+        std::cout << "Masukkan kategori barang: ";
+        std::cin >> stuff;
+        barang = new Peralatan(nama, stok, harga, stuff);
+
+    }
+
+    inv[len] = barang;
+
+    std::string transact_desc = "Stok - Pembelian " + nama + " - Qty: " + std::to_string(stok);
+
+    std::cout << std::endl << "Stok baru telah ditambahkan! ";
+    std::cout << "Silahkan melakukan pembayaran di bawah ini" << std::endl;
+
+    Transaction *transact = new Transaction("Out", transact_desc);
+    audit->updateTransList(transact->addTransaction(harga * stok));
+    delete transact;
+
+}
+
 void Manajer::manage_stock(Inventori **inv, int len, std::string action, Logger *audit) {
 
     std::cout << "===== INVENTORI =====" << std::endl;

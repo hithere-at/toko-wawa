@@ -45,6 +45,7 @@ int main() {
         std::cout << "===== TOKO WAWA  =====" << std::endl;
         std::cout << "1. Login" << std::endl;
         std::cout << "2. Register" << std::endl;
+        std::cout << "3. Keluar" << std::endl;
 
         int login_type = num_input("Apa yang anda lakukan [1-3]: ", 1, 3);
 
@@ -117,6 +118,9 @@ int main() {
             main_user = new User(nama, ttl, "Member", user_id, 100000, hash, salt);
             write_user(main_user, user_id, 100000);
 
+        } else {
+            break;
+
         }
 
         if (main_user->status == "Manajer") {
@@ -125,27 +129,37 @@ int main() {
             while (true) {
                 int stock_option;
 
-                std::cout << "1. Tambahkan stok" << std::endl;
-                std::cout << "2. Kurangi stok" << std::endl;
-                std::cout << "3. Tampilkan stok saat ini" << std::endl;
-                std::cout << "4. Lihat semua transaksi" << std::endl;
-                std::cout << "5. Logout" << std::endl;
-                stock_option = num_input("Apa yang anda pilih [0-2]: ", 1, 5);
+                std::cout << "1. Tambahkan stok yang ada" << std::endl;
+                std::cout << "2. Tambahkan stok baru" << std::endl;
+                std::cout << "3. Kurangi stok yang ada" << std::endl;
+                std::cout << "4. Tampilkan stok saat ini" << std::endl;
+                std::cout << "5. Lihat semua transaksi hari ini" << std::endl;
+                std::cout << "6. Lihat semua transaksi semua waktu" << std::endl;
+                std::cout << "7. Logout" << std::endl;
+                stock_option = num_input("Apa yang anda pilih [1-7]: ", 1, 7);
                 std::cout << std::endl;
 
                 if (stock_option == 1) {
                     manajer->manage_stock(inv, stok_len, "ADD", audit);
 
                 } else if (stock_option == 2) {
-                    manajer->manage_stock(inv, stok_len, "REMOVE", audit);
+                    manajer->add_new_stock(inv, stok_len, audit);
+                    stok_len++;
 
                 } else if (stock_option == 3) {
-                    manajer->print_stock(inv, stok_len);
+                    manajer->manage_stock(inv, stok_len, "REMOVE", audit);
 
                 } else if (stock_option == 4) {
-                    audit->getTransList();
+                    manajer->print_stock(inv, stok_len);
 
                 } else if (stock_option == 5) {
+                    audit->getTransList();
+
+                } else if (stock_option == 6) {
+                    std::cout << "----------------------------------TRANSAKSI SELAMA INI----------------------------------" << std::endl;
+                    read_everything_on_audit();
+
+                } else {
                     break;
 
                 }
@@ -155,17 +169,18 @@ int main() {
             }
 
         } else if (main_user->status == "Member") {
-            std::cout << std::endl << "Selamat datang, " << member->nama << std::endl;
+            std::cout << std::endl << "Selamat datang, " << member->nama;
+            Keranjang *cart = new Keranjang();
 
             while (true) {
-                Keranjang *cart = new Keranjang();
                 int pilihan;
 
-                std::cout << "1. Beli barang" << std::endl;
+                std::cout << std::endl << "1. Beli barang" << std::endl;
                 std::cout << "2. Lihat harga barang" << std::endl;
                 std::cout << "3. Finalisasi pembayaran" << std::endl;
-                std::cout << "4. Logout" << std::endl;
-                pilihan = num_input("Apa yang anda pilih [1-4]: ", 1, 4);
+                std::cout << "4. Lihat keranjang" << std::endl;
+                std::cout << "5. Logout" << std::endl;
+                pilihan = num_input("Apa yang anda pilih [1-5]: ", 1, 5);
 
                 if (pilihan == 1) {
                     std::cout << std::endl;
@@ -174,11 +189,15 @@ int main() {
                     int barang_dipilih = num_input("Pilih barang: ", 1, stok_len);
                     int banyak_barang = num_input("Banyak barang: ", 1, inv[barang_dipilih-1]->getStok());
 
+                    std::cout << std::endl;
+
                     inv[barang_dipilih-1]->kurangiStok(banyak_barang);
                     cart->tambahBarang(inv[barang_dipilih-1], banyak_barang);
 
                 } else if (pilihan == 2) {
+                    std::cout << std::endl;
                     print_current_stok(inv, stok_len);
+
                     int barang_dipilih = num_input("Pilih barang: ", 1, stok_len);
                     inv[barang_dipilih-1]->tampilkanBarang();
 
@@ -192,11 +211,27 @@ int main() {
                         User user_kasir("Kasir General", "01/01/1970", "Kasir");
                         kasir = new Kasir(user_kasir);
 
+                        std::cout << std::endl;
                         kasir->commit_transaction(main_user, cart, audit);
+                        cart = new Keranjang();
+
+                        std::cout << std::endl << "Pembayaran berhasil!" << std::endl;
+
+                    }
+
+                } else if (pilihan == 4) {
+
+                    if (!cart) {
+                        std::cerr << "Keranjang kosong!" << std::endl;
+                        continue;
+
+                    } else {
+                        cart->tampilkanKeranjang();
 
                     }
 
                 } else {
+                    std::cout << std::endl;
                     break;
 
                 }
@@ -215,9 +250,9 @@ int main() {
 
     delete[] inv;
     delete[] users;
-    delete main_user;
     delete manajer;
     delete kasir;
+    delete member;
     delete audit;
 
     return 0;

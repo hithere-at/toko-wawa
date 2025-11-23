@@ -9,7 +9,7 @@ ItemKeranjang::ItemKeranjang(Inventori* b, int j) {
 }
 
 long ItemKeranjang::totalHarga() {
-    return barang->totalHarga() / (barang->getStok() * jumlahBeli);
+    return barang->totalHarga() / barang->getStok() * jumlahBeli;
 
 }
 

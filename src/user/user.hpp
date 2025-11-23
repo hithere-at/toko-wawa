@@ -43,6 +43,7 @@ class Manajer : public User {
     public:
         Manajer(User &usr);
         void manage_stock(Inventori **inv, int len, std::string action, Logger *audit);
+        void add_new_stock(Inventori **inv, int len, Logger *audit);
         void print_stock(Inventori **inv, int len);
 
 };

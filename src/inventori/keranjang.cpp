@@ -7,7 +7,7 @@ Keranjang::Keranjang() : ItemKeranjang(nullptr, 0) {
 
 }
 
-void Keranjang::tambahBarang(Inventori* b, int qty) {
+void Keranjang::tambahBarang(Inventori *b, int qty) {
 
     if (jumlah < 100) {
         items[jumlah] = new ItemKeranjang(b, qty);
@@ -41,7 +41,7 @@ void Keranjang::tampilkanKeranjang() {
 
 long Keranjang::totalBelanja() {
 
-    long double total = 0;
+    long total = 0;
 
     for (int i = 0; i < jumlah; i++) {
         total += items[i]->totalHarga();

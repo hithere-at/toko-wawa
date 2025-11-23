@@ -98,12 +98,30 @@ void load_user_db_from_file(User *db) {
 
 }
 
+void read_everything_on_audit() {
+
+    std::fstream transact_file("transact.aud", std::ios::in);
+    std::string line_buf;
+
+    if (transact_file.is_open()) {
+
+        while (getline(transact_file, line_buf)) {
+            std::cout << line_buf << std::endl;
+
+        }
+
+    }
+
+    transact_file.close();
+
+}
+
 void write_transaction(std::string transact) {
 
     std::fstream transact_file("transact.aud", std::ios::out | std::ios::app);
 
     if (transact_file.is_open()) {
-        transact_file << transact << std::endl;
+        transact_file << transact;
 
     }
 
@@ -122,7 +140,7 @@ void write_user(User *usr, std::string uid, long balance) {
         user_file << uid << ",";
         user_file << balance << ",";
         user_file << usr->hash << ",";
-        user_file << usr->salt << std::endl;
+        user_file << usr->salt;
 
     }
 
