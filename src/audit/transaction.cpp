@@ -4,7 +4,7 @@
 
 std::string Transaction::addTransaction(long amount) {
 
-    std::cout << "Metode Pembayaran:\n1. Debit\n2. QRIS\n3. Cash\n";
+    std::cout << "Metode Pembayaran:\n1. Debit\n2. QRIS\n3. Cash\nPilih: ";
     std::cin >> this->transactionmethod;
 
     cashflow = amount;
@@ -29,7 +29,7 @@ std::string Transaction::addTransaction(long amount) {
             std::cout << "Masukkan Kode Sekuritas (3 digit di belakang kartu) : ";
             std::cin >> c;
 
-            Debit* newtrans = new Debit(a,b,c,cashflow,transactiontype,transactiondetails);
+            Debit* newtrans = new Debit(a, b, c, cashflow, transactiontype, transactiondetails);
             return newtrans->getLog();
 
             break;
@@ -46,7 +46,7 @@ std::string Transaction::addTransaction(long amount) {
             std::cout<<"Masukkan Nomor Akun Pembayar : ";
             std::cin>>c;
 
-            Qris* newtrans = new Qris(a,b,c,cashflow,transactiontype,transactiondetails);
+            Qris* newtrans = new Qris(a, b, c, cashflow, transactiontype, transactiondetails);
             return newtrans->getLogs();
 
             break;

@@ -12,8 +12,6 @@ void Logger::updateTransList(std::string adder){
     write_transaction(adder);
     this->findsize = this->translog.size();
 
-    std::cout << this->translog[totaltrans];
-
     totaltrans++;
 
 };
@@ -28,6 +26,6 @@ void Logger::getTransList(){
 
     }
 
-    std::cout << "\nKas tersedia sekarang : " << formatCash(std::to_string(totalcash), "null") << "\n";
+    // std::cout << "\nKas tersedia sekarang : " << formatCash(std::to_string(totalcash), "null") << "\n";
 
 }

@@ -14,6 +14,7 @@ class Inventori {
         void setBarang(std::string nama, int stock, int price);
         std::string getNama();
         long getStok();
+        long getHarga();
         virtual void tampilkanBarang();
         long totalHarga();
         void kurangiStok(int jumlah);

@@ -18,6 +18,11 @@ long Inventori::getStok() {
 
 }
 
+long Inventori::getHarga() {
+    return harga;
+
+}
+
 void Inventori::tampilkanBarang(){
     cout << "Nama Barang        : " << nama << endl;
     cout << "Stock Barang       : " << stok << endl;
@@ -36,7 +41,6 @@ void Inventori::kurangiStok(int jumlah) {
 
     if (jumlah <= stok) {
         stok -= jumlah;
-        cout << "Stok berkurang sebanyak " << jumlah << ". Sisa stok: " << stok << endl;
 
     } else {
         cout << "Stok tidak cukup!" << endl;
@@ -46,7 +50,6 @@ void Inventori::kurangiStok(int jumlah) {
 
 void Inventori::tambahStok(int jumlah) {
     stok += jumlah;
-    cout << "Stok bertambah sebanyak " << jumlah << ". Total stok: " << stok << endl;
 
 }
 

@@ -4,7 +4,7 @@
 
 Manajer::Manajer(User &usr) : User(usr) {}
 
-void Manajer::manage_stock(Inventori **inv, int len, std::string action) {
+void Manajer::manage_stock(Inventori **inv, int len, std::string action, Logger *audit) {
 
     std::cout << "===== INVENTORI =====" << std::endl;
 
@@ -40,14 +40,40 @@ void Manajer::manage_stock(Inventori **inv, int len, std::string action) {
     }
 
     int num_stok = num_input(prompt, 1, upper);
+    long harga_stok = inv[choice-1]->getHarga();
+    std::string transact_desc = "Stok - " + inv[choice-1]->getNama() + " - Qty: " + std::to_string(num_stok);
+    std::string cash_flow;
+
+    std::cout << std::endl;
 
     if (action == "ADD") {
         inv[choice-1]->tambahStok(num_stok);
+        cash_flow = "Out";
 
     } else if (action == "REMOVE") {
         inv[choice-1]->kurangiStok(num_stok);
+        cash_flow = "In";
+
+    }
+
+    std::cout << "Silahkan melakukan pembayaran di bawah ini" << std::endl;
+
+    Transaction *transact = new Transaction(cash_flow, transact_desc);
+    audit->updateTransList(transact->addTransaction(harga_stok * num_stok));
+    delete transact;
+
+}
+
+void Manajer::print_stock(Inventori **inv, int len) {
+
+    std::cout << "===== INVENTORI =====" << std::endl;
+
+    for (int i = 0; i < len; i++) {
+        std::string nama = inv[i]->getNama();
+        long stok = inv[i]->getStok();
+
+        std::cout << i+1 << ". " << nama << " (Stok: " << stok << ")" << std::endl;
 
     }
 
 }
-
