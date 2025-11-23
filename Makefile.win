@@ -1,0 +1,79 @@
+# Project: Toko Wawa
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = src/main.o src/audit/audit.o src/audit/debit.o src/audit/logger.o src/audit/qris.o src/audit/transaction.o src/inventori/inventory.o src/inventori/item_keranjang.o src/inventori/keranjang.o src/inventori/makanan.o src/inventori/minuman.o src/inventori/peralatan.o src/user/kasir.o src/user/manager.o src/user/member.o src/user/user.o src/utils/utils.o src/utils/hash.o
+LINKOBJ  = src/main.o src/audit/audit.o src/audit/debit.o src/audit/logger.o src/audit/qris.o src/audit/transaction.o src/inventori/inventory.o src/inventori/item_keranjang.o src/inventori/keranjang.o src/inventori/makanan.o src/inventori/minuman.o src/inventori/peralatan.o src/user/kasir.o src/user/manager.o src/user/member.o src/user/user.o src/utils/utils.o src/utils/hash.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -std=c++11
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"./src"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"./src"
+BIN      = toko_wawa.exe
+CXXFLAGS = $(CXXINCS) -std=c++11
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+src/main.o: src/main.cpp
+	$(CPP) -c src/main.cpp -o src/main.o $(CXXFLAGS)
+
+src/audit/audit.o: src/audit/audit.cpp
+	$(CPP) -c src/audit/audit.cpp -o src/audit/audit.o $(CXXFLAGS)
+
+src/audit/debit.o: src/audit/debit.cpp
+	$(CPP) -c src/audit/debit.cpp -o src/audit/debit.o $(CXXFLAGS)
+
+src/audit/logger.o: src/audit/logger.cpp
+	$(CPP) -c src/audit/logger.cpp -o src/audit/logger.o $(CXXFLAGS)
+
+src/audit/qris.o: src/audit/qris.cpp
+	$(CPP) -c src/audit/qris.cpp -o src/audit/qris.o $(CXXFLAGS)
+
+src/audit/transaction.o: src/audit/transaction.cpp
+	$(CPP) -c src/audit/transaction.cpp -o src/audit/transaction.o $(CXXFLAGS)
+
+src/inventori/inventory.o: src/inventori/inventory.cpp
+	$(CPP) -c src/inventori/inventory.cpp -o src/inventori/inventory.o $(CXXFLAGS)
+
+src/inventori/item_keranjang.o: src/inventori/item_keranjang.cpp
+	$(CPP) -c src/inventori/item_keranjang.cpp -o src/inventori/item_keranjang.o $(CXXFLAGS)
+
+src/inventori/keranjang.o: src/inventori/keranjang.cpp
+	$(CPP) -c src/inventori/keranjang.cpp -o src/inventori/keranjang.o $(CXXFLAGS)
+
+src/inventori/makanan.o: src/inventori/makanan.cpp
+	$(CPP) -c src/inventori/makanan.cpp -o src/inventori/makanan.o $(CXXFLAGS)
+
+src/inventori/minuman.o: src/inventori/minuman.cpp
+	$(CPP) -c src/inventori/minuman.cpp -o src/inventori/minuman.o $(CXXFLAGS)
+
+src/inventori/peralatan.o: src/inventori/peralatan.cpp
+	$(CPP) -c src/inventori/peralatan.cpp -o src/inventori/peralatan.o $(CXXFLAGS)
+
+src/user/kasir.o: src/user/kasir.cpp
+	$(CPP) -c src/user/kasir.cpp -o src/user/kasir.o $(CXXFLAGS)
+
+src/user/manager.o: src/user/manager.cpp
+	$(CPP) -c src/user/manager.cpp -o src/user/manager.o $(CXXFLAGS)
+
+src/user/member.o: src/user/member.cpp
+	$(CPP) -c src/user/member.cpp -o src/user/member.o $(CXXFLAGS)
+
+src/user/user.o: src/user/user.cpp
+	$(CPP) -c src/user/user.cpp -o src/user/user.o $(CXXFLAGS)
+
+src/utils/utils.o: src/utils/utils.cpp
+	$(CPP) -c src/utils/utils.cpp -o src/utils/utils.o $(CXXFLAGS)
+
+src/utils/hash.o: src/utils/hash.cpp
+	$(CPP) -c src/utils/hash.cpp -o src/utils/hash.o $(CXXFLAGS)
