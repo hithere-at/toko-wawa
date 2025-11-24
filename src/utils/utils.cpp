@@ -140,7 +140,7 @@ void write_user(User *usr, std::string uid, long balance) {
         user_file << uid << ",";
         user_file << balance << ",";
         user_file << usr->hash << ",";
-        user_file << usr->salt;
+        user_file << usr->salt << std::endl;
 
     }
 

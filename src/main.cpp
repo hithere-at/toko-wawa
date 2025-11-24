@@ -28,7 +28,7 @@ int main() {
     Member *member = nullptr;
 
     int users_len = get_db_user_len();
-    User *users = new User[users_len];
+    User *users = new User[100];
     load_user_db_from_file(users);
 
     int stok_len = 6;
@@ -116,6 +116,9 @@ int main() {
             hash = pw_hash(user_id + password, salt);
 
             main_user = new User(nama, ttl, "Member", user_id, 100000, hash, salt);
+            member = new Member(*main_user);
+            users[users_len] = *main_user;
+            users_len++;
             write_user(main_user, user_id, 100000);
 
         } else {
